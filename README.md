@@ -1,6 +1,6 @@
-# Wordnest
+# Wordnest2
 
-An English–Japanese vocabulary app for Cloudflare Workers and D1. It includes quizzes, flashcards, learning statistics, optional accounts, rankings, and password-protected administration.
+A vocabulary learning app for Cloudflare Workers and D1, with English and Japanese interfaces. It includes quizzes, flashcards, learning statistics, optional accounts, rankings, and password-protected administration.
 
 Use **Guide** for learning instructions and **Changelog** (`#/history`) for version history in English or Japanese. The current version appears in Settings and Changelog. Release notes are maintained in `public/changelog.js`. Entries before v1.9 reconstruct the early development history from older documentation and conversation records; their version numbers are editorial placeholders, explicitly labeled in both languages, and no unverified dates are assigned. This README covers deployment and operation.
 
@@ -130,7 +130,7 @@ Supported JSON format:
 {
   "format": "wordnest-set",
   "version": 1,
-  "title": "English words 1–50",
+  "title": "Words 1–50",
   "words": [
     {
       "english": "achieve",

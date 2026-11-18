@@ -1,6 +1,27 @@
 // Release notes are listed newest first. Reconstructed entries use editorial version numbers, not verified release tags.
 export const releaseHistory = [
   {
+    "version": "2.7.0",
+    "en": {
+      "title": "Wordnest2 branding and flexible word entry",
+      "changes": [
+        "The word field now accepts any text, including kana and kanji. Typing, multiple choice, flashcards, search, favorites, and statistics all work with non-English words.",
+        "Renamed English-specific labels: the word side is simply “Word”, directions are “Word → Meaning” and “Meaning → Word”, and guide texts follow the generic wording.",
+        "Pronunciation playback now selects a Japanese voice for kana and kanji words when one is available.",
+        "The app is branded as Wordnest2 across the interface, version labels, and downloaded ZIP file names."
+      ]
+    },
+    "ja": {
+      "title": "Wordnest2表記と単語入力の自由化",
+      "changes": [
+        "単語の入力欄に、ひらがな・カタカナ・漢字などもそのまま入力できるようにしました。入力式・4択・単語カード・検索・お気に入り・学習記録がそのまま利用できます。",
+        "英語専用の表示を一般化しました。単語の面は「単語」、出題方向は「単語 → 意味」「意味 → 単語」と表示し、ガイドの説明も合わせて更新しました。",
+        "かな・漢字の単語では、利用できる場合に日本語の音声で読み上げます。",
+        "アプリの表示名を、インターフェース・バージョン表記・ダウンロードするZIPのファイル名でWordnest2に統一しました。"
+      ]
+    }
+  },
+  {
     "version": "2.6.2",
     "en": {
       "title": "Earlier development history",

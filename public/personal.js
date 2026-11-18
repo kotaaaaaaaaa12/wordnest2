@@ -1,4 +1,4 @@
-import { normalize, normalizeIpaData, questionPool, shuffle, balanceAnswerPositions } from './core.js?v=2.6.2-b17d83728acbc4d2';
+import { normalize, normalizeIpaData, questionPool, shuffle, balanceAnswerPositions } from './core.js?v=2.7.0-b3d1477f03fa5823';
 const PREFIX='wordnest-personal-v1:';
 // Keep storage keys bounded even when a question has many accepted answers.
 function keyToken(value) {

@@ -41,7 +41,7 @@ test('UI: edit, quizzes, flashcards and gestures, theme settings, ZIP and JSON t
   try{
     w.localStorage.setItem('wordnest-ranking-v1',JSON.stringify({choice:'declined'}));w.eval(source);await tick();await tick();assert.equal(w.document.querySelectorAll('.set-card').length,1);assert.equal(find('[data-action="new"]'),null);assert.equal(find('[data-select]'),null);assert.equal(find('[data-action="import"]'),null);
     assert.deepEqual([...w.document.querySelectorAll('.nav [data-nav]')].map(link=>link.dataset.nav),['home','stats','rankings','guide','history']);
-    await click('.nav [data-nav="guide"]');assert.equal(w.location.hash,'#/guide');assert.equal(find('.guide-view h1').textContent,'How to use Wordnest');assert.equal(w.document.querySelectorAll('.guide-section').length,8);assert.equal(w.document.querySelectorAll('.guide-legend li').length,4);assert.ok(find('.nav [data-nav="guide"]').classList.contains('active'));assert.equal(find('.set-card'),null);
+    await click('.nav [data-nav="guide"]');assert.equal(w.location.hash,'#/guide');assert.equal(find('.guide-view h1').textContent,'How to use Wordnest2');assert.equal(w.document.querySelectorAll('.guide-section').length,8);assert.equal(w.document.querySelectorAll('.guide-legend li').length,4);assert.ok(find('.nav [data-nav="guide"]').classList.contains('active'));assert.equal(find('.set-card'),null);
     await click('.nav [data-nav="home"]');assert.equal(w.location.hash,'#/');assert.ok(find('.set-card'));
     await click('[data-action="settings"]');assert.equal(find('[data-settings-action]'),null);const theme=find('#theme-choice');theme.value='light';theme.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(w.document.documentElement.dataset.theme,'light');theme.value='dark';theme.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(w.document.documentElement.dataset.theme,'dark');assert.equal(w.localStorage.getItem('wordnest-theme'),'dark');assert.equal(w.getComputedStyle(find('#modal-title')).outline,'none');await click('[data-dialog="cancel"]');
     assert.equal(find('[data-nav="edit"]'),null);await click('[data-action="settings"]');assert.equal(find('[data-action="new"]'),null);assert.equal(find('[data-action="import"]'),null);assert.equal(find('[data-action="export"]'),null);input('#admin-password','a-long-testing-password');submit('#admin-login-form');await tick();await tick();assert.equal(find('[data-admin-open]'),null);await click('[data-dialog="cancel"]');await click('.nav [data-nav="edit"]');
@@ -83,7 +83,7 @@ test('UI: edit, quizzes, flashcards and gestures, theme settings, ZIP and JSON t
     await click('.nav [data-nav="home"]');assert.deepEqual([...w.document.querySelectorAll('.card-open')].map(b=>b.dataset.id),sets.map(s=>s.id));await click('.nav [data-nav="edit"]');
     await click('[data-action="settings"]');const language=find('#settings-language');language.value='ja';language.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(w.document.documentElement.lang,'ja');assert.equal(find('#modal-title').textContent,'設定');await click('[data-dialog="cancel"]');assert.ok(find('.edit-heading h1').textContent.includes('単語'));
     await click('.nav [data-nav="guide"]');assert.equal(find('.nav [data-nav="guide"]').textContent.trim(),'説明');assert.equal(find('.guide-view h1').textContent,'使い方');assert.ok(find('#guide-cards+ul').textContent.includes('単語カード'));assert.ok(find('.guide-view').textContent.includes('このブラウザ'));assert.ok(find('.guide-view').textContent.includes('両方向クリア'));
-    await click('[data-action="settings"]');find('#settings-language').value='en';find('#settings-language').dispatchEvent(new w.Event('change',{bubbles:true}));await click('[data-dialog="cancel"]');assert.equal(find('.guide-view h1').textContent,'How to use Wordnest');assert.equal(find('.nav [data-nav="guide"]').textContent.trim(),'Guide');assert.ok(find('.guide-view').textContent.includes('15-second'));
+    await click('[data-action="settings"]');find('#settings-language').value='en';find('#settings-language').dispatchEvent(new w.Event('change',{bubbles:true}));await click('[data-dialog="cancel"]');assert.equal(find('.guide-view h1').textContent,'How to use Wordnest2');assert.equal(find('.nav [data-nav="guide"]').textContent.trim(),'Guide');assert.ok(find('.guide-view').textContent.includes('15-second'));
   }finally{dom.window.close();}
 });
 
@@ -95,7 +95,7 @@ test('Guide deep link stays available when word set loading fails',async()=>{
   w.fetch=async()=>{throw new Error('Offline');};
   try{
     w.localStorage.setItem('wordnest-ranking-v1',JSON.stringify({choice:'declined'}));w.eval(source);await tick();await tick();
-    assert.equal(w.document.querySelector('.guide-view h1').textContent,'How to use Wordnest');
+    assert.equal(w.document.querySelector('.guide-view h1').textContent,'How to use Wordnest2');
     assert.ok(w.document.querySelector('.nav [data-nav="guide"]').classList.contains('active'));
     w.document.querySelector('.nav [data-nav="home"]').click();await tick();await tick();
     assert.equal(w.location.hash,'#/');assert.equal(w.document.querySelector('.guide-view'),null);assert.ok(w.document.querySelector('.empty'));

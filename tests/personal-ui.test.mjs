@@ -71,9 +71,9 @@ test('document titles follow all main tabs, selected language, and direct links'
   const {w}=harness('#/guide',true),find=s=>w.document.querySelector(s);
   async function click(selector){assert.ok(find(selector),selector);find(selector).click();await tick();await tick();}
   try{
-    w.localStorage.setItem('wordnest-ranking-v1',JSON.stringify({choice:'declined'}));w.eval(source);await tick();await tick();assert.equal(w.document.title,'Wordnest — Guide');
-    for(const [route,label] of [['stats','Statistics'],['edit','Edit'],['home','Practice'],['guide','Guide']]){await click(`.nav [data-nav="${route}"]`);assert.equal(w.document.title,`Wordnest — ${label}`);}
-    await click('[data-action="settings"]');find('#settings-language').value='ja';find('#settings-language').dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(w.document.title,'Wordnest — 説明');await click('[data-dialog="cancel"]');
-    for(const [route,label] of [['stats','学習記録'],['edit','編集'],['home','学習'],['guide','説明']]){await click(`.nav [data-nav="${route}"]`);assert.equal(w.document.title,`Wordnest — ${label}`);}
+    w.localStorage.setItem('wordnest-ranking-v1',JSON.stringify({choice:'declined'}));w.eval(source);await tick();await tick();assert.equal(w.document.title,'Wordnest2 — Guide');
+    for(const [route,label] of [['stats','Statistics'],['edit','Edit'],['home','Practice'],['guide','Guide']]){await click(`.nav [data-nav="${route}"]`);assert.equal(w.document.title,`Wordnest2 — ${label}`);}
+    await click('[data-action="settings"]');find('#settings-language').value='ja';find('#settings-language').dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(w.document.title,'Wordnest2 — 説明');await click('[data-dialog="cancel"]');
+    for(const [route,label] of [['stats','学習記録'],['edit','編集'],['home','学習'],['guide','説明']]){await click(`.nav [data-nav="${route}"]`);assert.equal(w.document.title,`Wordnest2 — ${label}`);}
   }finally{w.close();}
 });

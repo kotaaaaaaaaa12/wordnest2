@@ -43,18 +43,18 @@ test('Changelog is public below Guide, opens on deep links despite set-loading f
     const find=s=>w.document.querySelector(s),click=async s=>{assert.ok(find(s),s);find(s).click();await tick();await tick();};
     try{
       w.eval(source);await tick();await tick();
-      assert.equal(w.document.title,`Wordnest — ${messages[lang].history}`);
+      assert.equal(w.document.title,`Wordnest2 — ${messages[lang].history}`);
       const nav=[...w.document.querySelectorAll('.nav [data-nav]')].map(link=>link.dataset.nav);
       assert.deepEqual(nav,authenticated?['home','stats','rankings','guide','history','edit','admin']:['home','stats','rankings','guide','history']);
       assert.equal(find('.nav').style.getPropertyValue('--nav-count'),authenticated?'7':'5');
-      assert.equal(find('.history-version').textContent,`wordnest v${version}`);
+      assert.equal(find('.history-version').textContent,`Wordnest2 v${version}`);
       assert.equal(w.document.querySelectorAll('.history-entry').length,releaseHistory.length);
       assert.equal(w.document.querySelectorAll('.history-entry[open]').length,1);
       assert.equal(find('.history-entry-title').textContent,releaseHistory[0][lang].title);assert.equal(find('.history-reconstruction-note').textContent,messages[lang].historyReconstructionNote);assert.equal(w.document.querySelectorAll('.history-entry-reconstructed').length,releaseHistory.filter(release=>release.reconstructed).length);
       const older=w.document.querySelectorAll('.history-entry')[1];older.open=true;assert.ok(older.textContent.includes(releaseHistory[1][lang].changes[0]));older.open=false;
       await click('[data-action="settings"]');find('#theme-choice').value='dark';find('#theme-choice').dispatchEvent(new w.Event('change',{bubbles:true}));find('#dark-palette').value='graphite';find('#dark-palette').dispatchEvent(new w.Event('change',{bubbles:true}));
       const other=lang==='en'?'ja':'en';find('#settings-language').value=other;find('#settings-language').dispatchEvent(new w.Event('change',{bubbles:true}));await click('[data-dialog="cancel"]');
-      assert.equal(find('.history-entry-title').textContent,releaseHistory[0][other].title);assert.equal(w.document.title,`Wordnest — ${messages[other].history}`);assert.equal(w.document.documentElement.dataset.palette,'graphite');
+      assert.equal(find('.history-entry-title').textContent,releaseHistory[0][other].title);assert.equal(w.document.title,`Wordnest2 — ${messages[other].history}`);assert.equal(w.document.documentElement.dataset.palette,'graphite');
       await click('.nav [data-nav="guide"]');assert.ok(find('.guide-view'));await click('.nav [data-nav="history"]');assert.equal(w.location.hash,'#/history');assert.ok(find('.history-view'));
       w.fetch=async()=>{throw new Error('Offline fixture');};await click('.nav [data-nav="home"]');
       if(!authenticated){assert.ok(find('[data-action="reload"]'));await click('[data-action="reload"]');}
