@@ -21,11 +21,17 @@ test('Japanese prompts group duplicate meanings and accept all matching English 
   assert.ok(isCorrect(q,' BEGIN  ','ja-en'));assert.ok(isCorrect(q,'ｓｔａｒｔ','ja-en'));assert.equal(isCorrect(q,'started','ja-en'),false);
   assert.throws(()=>createQuiz(set,'en-ja',1),/needFour/);
 });
-test('validation rejects empty data, duplicate English words, bad types, and invalid counts',()=>{
+test('validation requires a title and typed entries but allows any length, word count, and repeated words',()=>{
   assert.throws(()=>validateSet({title:'  ',words:seed.words}),/invalidTitle/);
-  assert.throws(()=>validateSet({title:'Test',words:[]}),/invalidWords/);
-  assert.throws(()=>validateSet({title:'Test',words:[{english:'Apple',meaning:'りんご'},{english:' apple ',meaning:'リンゴ'}]}),/duplicateWord/);
+  assert.throws(()=>validateSet({title:'Test',words:[{english:'',meaning:'りんご'}]}),/invalidWords/);
   assert.throws(()=>validateSet({title:'Test',words:[{english:'test',meaning:'試験',explanation:{}}]}),/invalidWords/);
+  assert.deepEqual(validateSet({title:'Test',words:[]}).words,[]);
+  const long={title:'T'.repeat(500),words:[{english:'a'.repeat(500),meaning:'い'.repeat(500),explanation:'x'.repeat(5000)}]};
+  assert.equal(validateSet(long).title.length,500);
+  assert.equal(validateSet(long).words[0].english.length,500);
+  const repeated=validateSet({title:'Test',words:[{english:'Apple',meaning:'りんご'},{english:' apple ',meaning:'リンゴ'}]});
+  assert.deepEqual(repeated.words.map(w=>w.english),['Apple','apple']);
+  assert.equal(validateSet({title:'Test',words:Array.from({length:1200},(_,i)=>({english:'w'+i,meaning:'m'+i}))}).words.length,1200);
   for(const count of [0,-1,1.5,21,NaN])assert.throws(()=>createQuiz(seed,'ja-en',count),/invalidCount/);
 });
 test('single JSON and multiple zipped JSON sets round trip without server IDs',()=>{

@@ -78,17 +78,13 @@ export function remapIpaItalic(before,after,ranges,hint){
   return ipaItalicRanges(after,ipaFlagRanges([...flags.slice(0,start),...Array(added).fill(inherit),...flags.slice(end)]));
 }
 export function validateSet(input) {
-  if (!input || typeof input !== 'object' || typeof input.title !== 'string' || !input.title.trim() || input.title.trim().length > 150) throw new Error('invalidTitle');
-  if (!Array.isArray(input.words) || !input.words.length || input.words.length > 1000) throw new Error('invalidWords');
+  if (!input || typeof input !== 'object' || typeof input.title !== 'string' || !input.title.trim()) throw new Error('invalidTitle');
+  if (!Array.isArray(input.words)) throw new Error('invalidWords');
   if(input.published!==undefined && typeof input.published!=='boolean')throw new Error('invalidVisibility');
-  const seen = new Set();
   const words = input.words.map(w => {
-    if (!w || typeof w.english !== 'string' || typeof w.meaning !== 'string' || !w.english.trim() || !w.meaning.trim() || w.english.length > 150 || w.meaning.length > 300 || (w.explanation !== undefined && typeof w.explanation !== 'string') || (w.explanation || '').length > 2000) throw new Error('invalidWords');
+    if (!w || typeof w.english !== 'string' || typeof w.meaning !== 'string' || !w.english.trim() || !w.meaning.trim() || (w.explanation !== undefined && typeof w.explanation !== 'string')) throw new Error('invalidWords');
     if(w.ipa!==undefined && (typeof w.ipa!=='string' || w.ipa.length>200 || /[\u0000-\u001f\u007f]/.test(w.ipa)))throw new Error('invalidIpa');
     const pronunciation=normalizeIpaData(w.ipa || '',w.ipaItalic);
-    const key = normalize(w.english);
-    if (seen.has(key)) throw new Error('duplicateWord');
-    seen.add(key);
     return { english: w.english.trim(), meaning: w.meaning.trim(), explanation: (w.explanation || '').trim(),...(pronunciation.ipa?pronunciation:{}) };
   });
   return { title: input.title.trim(), words,...(input.published===false?{published:false}:{}) };

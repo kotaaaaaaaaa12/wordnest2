@@ -1,6 +1,25 @@
 // Release notes are listed newest first. Reconstructed entries use editorial version numbers, not verified release tags.
 export const releaseHistory = [
   {
+    "version": "2.7.1",
+    "en": {
+      "title": "No limits in the word editor",
+      "changes": [
+        "Removed the character limits on set titles, words, meanings, and explanations.",
+        "Removed the word-count range and the duplicate-word restriction, so a set can hold any number of entries, including repeated words.",
+        "Updated the editor validation messages to match the new rules."
+      ]
+    },
+    "ja": {
+      "title": "単語編集の制限を撤廃",
+      "changes": [
+        "セットのタイトル・単語・意味・解説の文字数制限をなくしました。",
+        "単語数の上限・下限と、同じ単語を重複して登録できない制限をなくし、いくつでも、重複も含めて登録できるようにしました。",
+        "編集時のエラーメッセージを新しいルールに合わせて更新しました。"
+      ]
+    }
+  },
+  {
     "version": "2.7.0",
     "en": {
       "title": "Wordnest2 branding and flexible word entry",
